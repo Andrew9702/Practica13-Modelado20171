@@ -1,10 +1,8 @@
 #include "arreglos_random.h"
 
-#include <stdio>
+#include <stdio.h>
 
-#include <ctime>
-
-#include <cstdlib>
+#include <time.h>
 #include <time.h>
 #include <stdlib.h>
 
@@ -18,11 +16,12 @@
 int* arreglo_int(size_t num, int min, int max){
 	time_t t;
     srand((unsigned) time(&t));
+    int indice = 0;
 	//Se crea un apuntador a un arreglo de int en el heap
 	//Se aparta en el heap con malloc en donde el tamaño que ocupara en el heap
 	int *arregloInt = malloc(num * sizeof(int));
 	//Rellenamos el arreglo de numeros al azar
-	for(int indice = 0;indice<num;indice++){
+	for(indice;indice<num;indice++){
 		//Se agrega al arreglo
 		arregloInt[indice] = rand()%(max - min) + min;
 	}
