@@ -1,9 +1,12 @@
 /*Incluye las funciones de b_sort.c y arreglos_random.c*/
 #include "b_sort.h"
 #include "arreglos_random.h"
+#include "arreglos_random.c"
+#include "b_sort.c"
 
 //Para imprimir en consola
 #include "stdio.h"
+
 
 /*Declara las funciones que vamos a ocupar*/
 
@@ -24,13 +27,17 @@ int main()
     double *arr2 = arreglo_double(20, 0, 10);
 
     // Se imprime ordena e imprime el primer arreglo
+    printf("*********Arreglo para int antes de ordenar*********\n");
     imprime_int(arr1, 20);
     bsort(arr1, 20, sizeof(int), &cmp_int);
+    printf("*********Despues de ordenar*********\n");
     imprime_int(arr1, 20);
 
     // Se imprime ordena e imprime el segundo arreglo
+    printf("*********Arreglo para double antes de ordenar*********\n");
     imprime_double(arr2, 20);
     bsort(arr2, 20, sizeof(double), &cmp_double);
+    printf("*********Despues de ordenar*********\n");
     imprime_double(arr2, 20);
 
     // Se libera la memoria que ocupan los arreglos ordenados
@@ -40,6 +47,7 @@ int main()
     //Se libera la del segundo, arr2vale lo que arreglo_double regresa
     //El apuntador como su nombre lo dice solo apunta a la direccion en memoria de este valor
     free(arr2);
+    system("PAUSE");
 
     return 0;
 }
@@ -52,25 +60,38 @@ int cmp_int(const void *a, const void *b){
     int v1 = *(int *) a;
     //Lo mismo para b
     int v2 = *(int *) b;
+    if(v1 < v2){
+        return -1;
+    } 
     if(v1 == v2){
         return 0;
     }
+    if(v1>v2){
+        return 1;
+    }
 
-    return -1;
+    return 0;
 }
 
 //Recibe dos apuntadores que no tienen ningun tipo de valor asociado
 //Son apuntadores inmutables
 //Regresa 0 si son iguales, -1 en otro caso
 int cmp_double(const void *a, const void *b){
-    //Obtenemos el valor de a, en un float haciendo un casting al apuntador
-    double v1 = *(double *)a;
-    //Lo mismo en b
-    double v2 = *(double *)b;
+    //Se obtiene el valor del apuntador en un entero, haciendo un casting al tipo de valor int para el apuntador
+    double v1 = *(double *) a;
+    //Lo mismo para b
+    double v2 = *(double *) b;
+    if(v1 < v2){
+        return -1;
+    } 
     if(v1 == v2){
         return 0;
     }
-    return -1;
+    if(v1>v2){
+        return 1;
+    }
+
+    return 0;
 }
 
 //Imprime el arreglo y no regresa nada
@@ -78,7 +99,7 @@ int cmp_double(const void *a, const void *b){
 void imprime_int(int *arreglo, size_t num){
     int indice = 0;
     for(indice;indice<num;indice++){
-        printf("%d\n", arreglo[indice]);
+        printf("el valor del arreglo en[ %d ] es: %d\n", indice, arreglo[indice]);
     }
 
 }
@@ -88,7 +109,7 @@ void imprime_int(int *arreglo, size_t num){
 void imprime_double(double *arreglo, size_t num){
     int indice = 0;
     for(indice;indice<num;indice++){
-        printf("%f\n", arreglo[indice]);
+        printf("el valor del arreglo en[ %d ] es: %f\n", indice, arreglo[indice]);
     }
 }
 
